@@ -6,31 +6,17 @@ import java.util.*;
 public class YatzyScorer {
 
 	public int calculateScore(Category category, YatzyRoll roll) {
-		switch (category) {
-			case CHANCE:
-				return getChanceSum(roll);
-			case YATZY:
-				return evaluateYatzy(roll);
-			case ONES:
-			case TWOS:
-			case THREES:
-			case FOURS:
-			case FIVES:
-			case SIXES:
-				return getNumberScores(category, roll);
-			case PAIR:
-				return getBiggestPairScore(roll);
-			case TWO_PAIRS:
-				return getTwoPairScore(roll);
-			case THREE_OF_A_KIND:
-			case FOUR_OF_A_KIND:
-				return getXOfAKindPairScore(category, roll);
-			case SMALL_STRAIGHT:
-			case LARGE_STRAIGHT:
-				return getStraightScore(category, roll);
-			case FULL_HOUSE: return evaluateFullHouse(roll);
-			default: return 0;
-		}
+		return switch (category) {
+			case CHANCE -> getChanceSum(roll);
+			case YATZY -> evaluateYatzy(roll);
+			case ONES, TWOS, THREES, FOURS, FIVES, SIXES -> getNumberScores(category, roll);
+			case PAIR -> getBiggestPairScore(roll);
+			case TWO_PAIRS -> getTwoPairScore(roll);
+			case THREE_OF_A_KIND, FOUR_OF_A_KIND -> getXOfAKindPairScore(category, roll);
+			case SMALL_STRAIGHT, LARGE_STRAIGHT -> getStraightScore(category, roll);
+			case FULL_HOUSE -> evaluateFullHouse(roll);
+			default -> 0;
+		};
 	}
 
 	private int getChanceSum(YatzyRoll roll) {
@@ -95,17 +81,10 @@ public class YatzyScorer {
 
 	public int getNumberScores(Category category, YatzyRoll yatzyRoll) {
 
-		switch (category) {
-			case ONES:
-			case TWOS:
-			case THREES:
-			case FOURS:
-			case FIVES:
-			case SIXES:
-				return evaluateNumberScores(category.getValue(), yatzyRoll);
-			default:
-				return 0;
-		}
+		return switch (category) {
+			case ONES, TWOS, THREES, FOURS, FIVES, SIXES -> evaluateNumberScores(category.getValue(), yatzyRoll);
+			default -> 0;
+		};
 
 	}
 

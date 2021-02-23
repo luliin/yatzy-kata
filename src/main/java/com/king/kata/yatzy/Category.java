@@ -24,8 +24,7 @@ public enum Category {
 		this.value = value;
 	}
 
-	Category() {
-	}
+	Category() {}
 
 	public int getValue() {
 		return value;
