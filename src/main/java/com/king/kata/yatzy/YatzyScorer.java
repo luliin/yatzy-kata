@@ -58,10 +58,8 @@ public class YatzyScorer {
 	}
 
 	public int getXOfAKindPairScore(Category category, YatzyRoll roll) {
-		int faceValue = 0;
 		Set<Map.Entry<Integer, Integer>> entrySet = roll.getEntrySet();
-
-		faceValue = evaluate(category.getValue(), entrySet);
+		int faceValue = evaluate(category.getValue(), entrySet);
 
 		return category.getValue() * faceValue;
 	}
