@@ -97,8 +97,7 @@ public class YatzyScorer {
 				.findFirst().orElse(0);
 		if (first == category.getValue()) {
 			result = roll.getSortedStream()
-					.reduce(first-1, (a, b) -> (a == (b - 1)) ? b : 0);
-			//TODO: kolla first a+1 b....
+					.reduce(first, (a, b) -> (a == b) ? a + 1 : 0);
 		}
 		return result != 0 ? roll.getSum() : result;
 	}
