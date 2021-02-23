@@ -60,15 +60,20 @@ public class YatzyScorer {
 	public int getXOfAKindPairScore(Category category, YatzyRoll roll) {
 		int faceValue = 0;
 		Set<Map.Entry<Integer, Integer>> entrySet = roll.getEntrySet();
-		while (faceValue == 0) {
-			for (Map.Entry<Integer, Integer> entry : entrySet) {
-				if (entry.getValue().equals(category.getValue())) {
-					faceValue = entry.getKey();
-					//TODO: Funkar inte???
-				}
+
+		faceValue = evaluate(category.getValue(), entrySet);
+
+		return category.getValue() * faceValue;
+	}
+
+	private int evaluate(int categoryValue, Set<Map.Entry<Integer, Integer>> entrySet) {
+		int faceValue = 0;
+		for (Map.Entry<Integer, Integer> entry : entrySet) {
+			if (entry.getValue() >= categoryValue) {
+				faceValue = entry.getKey();
 			}
 		}
-		return category.getValue() * faceValue;
+		return faceValue;
 	}
 
 	public int getNumberScores(Category category, YatzyRoll yatzyRoll) {
