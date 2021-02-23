@@ -91,7 +91,6 @@ public class YatzyScorer {
 	}
 
 	public int getStraightScore(Category category, YatzyRoll roll) {
-
 		int result = 0;
 		int first = roll.getSortedStream()
 				.findFirst().orElse(0);
@@ -103,8 +102,7 @@ public class YatzyScorer {
 	}
 
 	public int evaluateFullHouse(YatzyRoll roll) {
-		if(roll.getMap().containsValue(3) && roll.getMap().containsValue(2)) {
-			return roll.getSum();
-		} else return 0;
+		return roll.getMap().containsValue(3) && roll.getMap().containsValue(2) ?
+				roll.getSum() : 0;
 	}
 }
