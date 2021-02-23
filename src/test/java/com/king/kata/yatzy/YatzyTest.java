@@ -202,6 +202,12 @@ public class YatzyTest {
 	}
 
 	@Test
+	public void threeOfAKindIsNotForOfAKind() {
+		int score = yatzyScorer.calculateScore(Category.FOUR_OF_A_KIND, YatzyRoll.create(4, 4, 1, 5, 4));
+		assertEquals(0, score);
+	}
+
+	@Test
 	public void smallStraightTest() {
 		int score = yatzyScorer.calculateScore(Category.SMALL_STRAIGHT, YatzyRoll.create(1, 2, 3, 4, 5));
 		assertEquals(15, score);

@@ -7,7 +7,7 @@ public class YatzyScorer {
 
 	public int calculateScore(Category category, YatzyRoll roll) {
 		return switch (category) {
-			case CHANCE -> getChanceSum(roll);
+			case CHANCE -> roll.getSum();
 			case YATZY -> evaluateYatzy(roll);
 			case ONES, TWOS, THREES, FOURS, FIVES, SIXES -> getNumberScores(category, roll);
 			case PAIR -> getBiggestPairScore(roll);
@@ -19,17 +19,8 @@ public class YatzyScorer {
 		};
 	}
 
-	private int getChanceSum(YatzyRoll roll) {
-		return roll.getAsStream()
-				.sum();
-	}
-
 	private int evaluateYatzy(YatzyRoll roll) {
-		Set<Map.Entry<Integer, Integer>> entrySet = roll.getEntrySet();
-		for (Map.Entry<Integer, Integer> entry : entrySet) {
-			if (entry.getValue() == 5) return 50;
-		}
-		return 0;
+		return roll.getMap().containsValue(5) ? 50 : 0;
 	}
 
 
@@ -71,8 +62,9 @@ public class YatzyScorer {
 		Set<Map.Entry<Integer, Integer>> entrySet = roll.getEntrySet();
 		while (faceValue == 0) {
 			for (Map.Entry<Integer, Integer> entry : entrySet) {
-				if (entry.getValue() > 2) {
+				if (entry.getValue().equals(category.getValue())) {
 					faceValue = entry.getKey();
+					//TODO: Funkar inte???
 				}
 			}
 		}
@@ -80,12 +72,10 @@ public class YatzyScorer {
 	}
 
 	public int getNumberScores(Category category, YatzyRoll yatzyRoll) {
-
 		return switch (category) {
 			case ONES, TWOS, THREES, FOURS, FIVES, SIXES -> evaluateNumberScores(category.getValue(), yatzyRoll);
 			default -> 0;
 		};
-
 	}
 
 	public int evaluateNumberScores(int value, YatzyRoll yatzyRoll) {
@@ -101,9 +91,9 @@ public class YatzyScorer {
 		int first = roll.getSortedStream()
 				.findFirst().orElse(0);
 		if (first == category.getValue()) {
-			result = roll.getAsStream()
-					.sorted()
+			result = roll.getSortedStream()
 					.reduce(first-1, (a, b) -> (a == (b - 1)) ? b : 0);
+			//TODO: kolla first a+1 b....
 		}
 		return result != 0 ? roll.getSum() : result;
 	}
