@@ -1,3 +1,7 @@
+This was a workshop held in school, where we were given a kata-like project and were challenged to work with TDD.
+
+
+
 # Kata description
 The objective of this kata is to build a scoring "service". You're not expected to write a complete game with
 dice rolls and automatic best hand selections (although you can if you want to and have time). Rather, given
